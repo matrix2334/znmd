@@ -1,0 +1,72 @@
+package com.mph.controller;
+
+import java.util.Scanner;
+import  com.mph.model.Fte;
+import com.mph.model.Pte;
+
+import com.mph.model.Employee;
+import com.mph.model.salary;
+public class EmployeeController implements EmployeeInterface {
+     
+	Scanner sc = new Scanner(System.in);
+     Fte f=new Fte();
+     Pte p;
+	Employee e ;
+     salary s=new salary();
+     String op;
+	public void addEmployee() {
+		String name;
+		String ch="NULL";
+		int eno;
+		System.out.print("Are you a part time or a full time employee:?");
+		ch=sc.next();
+		
+		System.out.print("Enter employee name:");
+		name=sc.next();
+	
+		System.out.print("Enter employee number:");
+		eno=sc.nextInt();
+		e=new Employee(name,eno,ch);
+		if(ch.equals("fte"))
+		{System.out.print("Enter basic salary:");
+		int base;
+		base=sc.nextInt();
+		
+		f.setBasic(base);
+		f.setHra();
+		f.setGross();
+		f.setNet();
+		f.setPf();
+		e.setSal(f);
+		}
+		else {
+			int hrs;
+			int pay_per_hr;
+			System.out.print("Enter no of hours:");
+			hrs=sc.nextInt();
+			System.out.print("Enter rate/hour:");
+			pay_per_hr=sc.nextInt();
+			 p=new Pte(hrs,pay_per_hr);
+			float sa=p.cal_sal();
+			e.setSal(p);
+			
+		}
+		//e.setSal(s);
+		System.out.println("\t\t\t************************");
+		System.out.println("\t\t\temployee added successfully");
+		System.out.println("\t\t\t************************");
+		op=ch;
+		
+	}
+     
+	public void viewEmployee() {
+		System.out.print(e);
+		System.out.println("--------");
+		if(op.equals("fte"))
+		System.out.println(f);
+		else
+			System.out.println(p.cal_sal());
+		
+	}
+   
+}
